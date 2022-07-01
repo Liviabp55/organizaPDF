@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Organiza PDF</title>
+    </h:head>
+    <h:body>
+        <p:commandButton value="Adicionar" type="button" onclick="PF('dlg1').show();" />
+        <p:dialog header="Novo PDF" modal="true" widgetVar="dlg1" minHeight="40">
+
+            <h:form>
+
+                <p:panelGrid columns="2">
+
+                    <p:outputLabel value = "Descrição"></p:outputLabel>
+                    <p:inputText value="#{TestaBean.entidade.descricao}" id="txtSobrenome"></p:inputText>
+
+                    <p:outputLabel value = "Tags"></p:outputLabel>
+                    <p:inputText value="#{TestaBean.tags.descricao}" id="txtSobrenome"></p:inputText>
+
+                    <p:commandButton value="Adicionar" action="#{tarefaBean.salvar()}"                                    
+                                     update="@form :lista"
+                                     ></p:commandButton>
+
+                    <p:commandButton value="Salvar" action="#{tarefaBean.salvar()}"                                    
+                                     update="@form :lista"
+                                     ></p:commandButton>
+                </p:panelGrid>
+
+            </h:form>
+        </p:dialog>  
+
+
+
+
+        <h:form id="lista">
+            <p:panelGrid columns="3">
+
+                <p:dataTable value="#{tarefaBean.entidades}" var="entidade">
+                    <p:column headerText="PDF">
+
+                    </p:column>
+                    <p:column headerText="Descrição">
+
+
+                    </p:column>
+                    <p:column headerText="Tags">
+
+                    </p:column>
+
+
+                </p:dataTable>
+
+            </p:panelGrid>
+        </h:form>
+
+
+
+
+        <div class="card">
+            <h5>Adicionar pdf </h5>
+            <h:form enctype="multipart/form-data">
+                <p:fileUpload value="#{TesteBean.files}" mode="simple" skinSimple="true" multiple="true"/>
+                <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.uploadMultiple}" styleClass="p-mt-3 ui-button-outlined p-d-block"/>
+            </h:form>
+        </div>
+
+
+
+    </h:body>
+</html>
+
