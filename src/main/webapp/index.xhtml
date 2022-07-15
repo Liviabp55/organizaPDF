@@ -10,24 +10,28 @@
         <p:commandButton value="Adicionar" type="button" onclick="PF('dlg1').show();" />
         <p:dialog header="Novo PDF" modal="true" widgetVar="dlg1" minHeight="40">
 
-            <h:form>
+            <h:form enctype="multipart/form-data">
 
                 <p:panelGrid columns="2">
 
                     <p:outputLabel value = "Descrição"></p:outputLabel>
-                    <p:inputText value="#{TestaBean.entidade.descricao}" id="txtSobrenome"></p:inputText>
+                    <p:inputText value="#{testeBean.entidade.descricao}" id="txtDescricao"></p:inputText>
 
                     <p:outputLabel value = "Tags"></p:outputLabel>
-                    <p:inputText value="#{TestaBean.tags.descricao}" id="txtSobrenome"></p:inputText>
+                    <p:inputText value="#{testeBean.entidade.tags}" id="txtTag"></p:inputText>
 
-                    <p:commandButton value="Adicionar" action="#{tarefaBean.salvar()}"                                    
-                                     update="@form :lista"
-                                     ></p:commandButton>
+                    <p:outputLabel value = "PDF"></p:outputLabel>
 
-                    <p:commandButton value="Salvar" action="#{tarefaBean.salvar()}"                                    
-                                     update="@form :lista"
-                                     ></p:commandButton>
+
+                    <p:fileUpload value="#{testeBean.file}" mode="simple" skinSimple="true" multiple="true"/>
+
+                    <p:commandButton value="Submit" ajax="false" action="#{testeBean.upload()}" styleClass="p-mt-3 ui-button-outlined p-d-block"/>
+
+
                 </p:panelGrid>
+                <p:commandButton value="Salvar" action="#{testeBean.salvar()}"                                    
+                                 update="@form"
+                                 ></p:commandButton>
 
             </h:form>
         </p:dialog>  
@@ -38,17 +42,24 @@
         <h:form id="lista">
             <p:panelGrid columns="3">
 
-                <p:dataTable value="#{tarefaBean.entidades}" var="entidade">
-                    <p:column headerText="PDF">
+                <p:dataTable value="#{testeBean.entidades}" var="entidade">
+                    <p:column headerText="URL">
+
+                        <h:outputText value="#{entidade.url}"></h:outputText>
 
                     </p:column>
                     <p:column headerText="Descrição">
 
+                        <h:outputText value="#{entidade.descricao}"></h:outputText>
 
                     </p:column>
                     <p:column headerText="Tags">
 
+                        <h:outputText value="#{entidade.tags}"></h:outputText>
+
                     </p:column>
+
+                    <p:commandButton value="Modal" type="button" onclick="PF('dlg1').show();" />
 
 
                 </p:dataTable>
@@ -59,13 +70,7 @@
 
 
 
-        <div class="card">
-            <h5>Adicionar pdf </h5>
-            <h:form enctype="multipart/form-data">
-                <p:fileUpload value="#{TesteBean.files}" mode="simple" skinSimple="true" multiple="true"/>
-                <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.uploadMultiple}" styleClass="p-mt-3 ui-button-outlined p-d-block"/>
-            </h:form>
-        </div>
+
 
 
 

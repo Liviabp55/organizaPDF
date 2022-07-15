@@ -18,12 +18,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pdf")
-public class PDF implements Serializable{
+public class PDF implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    private String tags;
+    private String descricao;
     private String url;
 
     public String getDescricao() {
@@ -33,9 +34,7 @@ public class PDF implements Serializable{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    private String tags;
-    private String descricao;
-    
+
     public Integer getId() {
         return id;
     }
@@ -81,6 +80,5 @@ public class PDF implements Serializable{
         final PDF other = (PDF) obj;
         return Objects.equals(this.id, other.id);
     }
-    
-    
+
 }
